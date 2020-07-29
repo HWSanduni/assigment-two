@@ -10,6 +10,7 @@ import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
 
+    @Override
     public  List<Item> findAllItems(){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -29,6 +30,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public  Item findItem(String itemCode){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -48,6 +50,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public  boolean saveItem(Item item){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -63,6 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public  boolean updateItem(Item item){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -78,6 +82,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public  boolean deleteItem(String itemCode){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -90,6 +95,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public  String getLastItemCode() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class OrderDetailsDAOImpl implements OrderDetailDAO {
 
+    @Override
     public  List<OrderDetail> findAllOrderDetails() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -30,6 +31,7 @@ public class OrderDetailsDAOImpl implements OrderDetailDAO {
         }
     }
 
+    @Override
     public  OrderDetail findOrderDetail(OrderDetailPK orderDetailPK) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -50,6 +52,7 @@ public class OrderDetailsDAOImpl implements OrderDetailDAO {
         }
     }
 
+    @Override
     public  boolean saveOrderDetail(OrderDetail orderDetail) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -65,6 +68,7 @@ public class OrderDetailsDAOImpl implements OrderDetailDAO {
         }
     }
 
+    @Override
     public  boolean updateOrderDetail(OrderDetail orderDetail) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -80,6 +84,7 @@ public class OrderDetailsDAOImpl implements OrderDetailDAO {
         }
     }
 
+    @Override
     public  boolean deleteOrderDetail(OrderDetailPK orderDetailPK) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();

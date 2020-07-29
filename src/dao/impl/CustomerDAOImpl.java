@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
+    @Override
     public  List<Customer> findAllCustomers(){
 
         try {
@@ -31,6 +32,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     }
 
+    @Override
     public  Customer findCustomer(String id){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -50,6 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     }
 
+    @Override
     public  boolean saveCustomer (Customer customer){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -68,6 +71,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     }
 
+    @Override
     public  boolean updateCustomer (Customer customer){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -84,6 +88,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
+    @Override
     public  boolean deleteCustomer (String id){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -95,6 +100,8 @@ public class CustomerDAOImpl implements CustomerDAO {
             return false;
         }
     }
+
+    @Override
     public  String getLastCustomerId() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();

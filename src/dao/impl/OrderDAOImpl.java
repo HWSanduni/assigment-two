@@ -11,6 +11,7 @@ import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
 
+    @Override
     public  List<Order> findAllOrders() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -29,6 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
     public  Order findOrder(String orderId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -47,6 +49,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
     public  boolean saveOrder(Order order) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -61,6 +64,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
     public  boolean updateOrder(Order order) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -75,6 +79,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
     public  boolean deleteOrder(String orderId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -87,6 +92,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
     public  String getLastOrderId() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
