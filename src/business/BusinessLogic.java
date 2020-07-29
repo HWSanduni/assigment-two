@@ -1,6 +1,9 @@
 package business;
 
-import dao.*;
+import dao.impl.CustomerDAOImpl;
+import dao.impl.ItemDAOImpl;
+import dao.impl.OrderDAOImpl;
+import dao.impl.OrderDetailsDAOImpl;
 import db.DBConnection;
 import entity.Customer;
 import entity.Item;
@@ -14,7 +17,6 @@ import util.OrderTM;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 public class BusinessLogic {
 
     public static String getNewCustomerId() {
-        String lastCustomerId = new CustomerDAO().getLastCustomerId();
+        String lastCustomerId = new CustomerDAOImpl().getLastCustomerId();
         if (lastCustomerId == null) {
             return "C001";
         } else {
@@ -41,7 +43,7 @@ public class BusinessLogic {
     }
 
     public static String getNewItemCode() {
-        String lastItemCode = new ItemDAO().getLastItemCode();
+        String lastItemCode = new ItemDAOImpl().getLastItemCode();
         if (lastItemCode == null) {
             return "I001";
         } else {
@@ -60,7 +62,7 @@ public class BusinessLogic {
     }
 
     public static String getNewOrderId() {
-        String lastOrderId = new OrderDAO().getLastOrderId();
+        String lastOrderId = new OrderDAOImpl().getLastOrderId();
         if (lastOrderId == null) {
             return "OD001";
         } else {
@@ -79,7 +81,7 @@ public class BusinessLogic {
     }
 
     public static List<CustomerTM> getAllCustomers() {
-        List<Customer> allCustomers = new CustomerDAO().findAllCustomers();
+        List<Customer> allCustomers = new CustomerDAOImpl().findAllCustomers();
         List<CustomerTM> customers = new ArrayList<>();
         for (Customer customer : allCustomers) {
             customers.add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -89,22 +91,22 @@ public class BusinessLogic {
 
     public static boolean saveCustomer(String id, String name, String address) {
         //  return DataLayer.saveCustomer(new CustomerTM(id,name,address));
-        return new CustomerDAO().saveCustomer(new Customer(id, name, address));
+        return new CustomerDAOImpl().saveCustomer(new Customer(id, name, address));
     }
 
     public static boolean deleteCustomer(String customerId) {
         // return DataLayer.deleteCustomer(customerId);
-        return new CustomerDAO().deleteCustomer(customerId);
+        return new CustomerDAOImpl().deleteCustomer(customerId);
     }
 
     public static boolean updateCustomer(String name, String address, String customerId) {
         // return DataLayer.updateCustomer(new CustomerTM(customerId, name, address));
-        return new CustomerDAO().updateCustomer(new Customer(customerId, name, address));
+        return new CustomerDAOImpl().updateCustomer(new Customer(customerId, name, address));
     }
 
     public static List<ItemTM> getAllItems() {
         // return DataLayer.getAllItems();
-        List<Item> allItems = new ItemDAO().findAllItems();
+        List<Item> allItems = new ItemDAOImpl().findAllItems();
         List<ItemTM> items = new ArrayList<>();
         for (Item item : allItems) {
             items.add(new ItemTM(item.getCode(), item.getDescription(), item.getQtyOnHand(),
@@ -115,16 +117,16 @@ public class BusinessLogic {
 
     public static boolean saveItem(String code, String description, int qtyOnHand, double unitPrice) {
         // return DataLayer.saveItem(new ItemTM(code, description, qtyOnHand, unitPrice));
-        return new ItemDAO().saveItem(new Item(code, description, BigDecimal.valueOf(unitPrice), qtyOnHand));
+        return new ItemDAOImpl().saveItem(new Item(code, description, BigDecimal.valueOf(unitPrice), qtyOnHand));
     }
 
     public static boolean deleteItem(String itemCode) {
-        return new ItemDAO().deleteItem(itemCode);
+        return new ItemDAOImpl().deleteItem(itemCode);
     }
 
     public static boolean updateItem(String description, int qtyOnHand, double unitPrice, String itemCode) {
         // return DataLayer.updateItem(new ItemTM(itemCode, description, qtyOnHand, unitPrice));
-        return new ItemDAO().updateItem(new Item(itemCode, description,
+        return new ItemDAOImpl().updateItem(new Item(itemCode, description,
                 BigDecimal.valueOf(unitPrice), qtyOnHand));
     }
 
@@ -132,7 +134,7 @@ public class BusinessLogic {
         Connection connection = DBConnection.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);
-            boolean result = new OrderDAO().saveOrder(new Order(order.getOrderId(),
+            boolean result = new OrderDAOImpl().saveOrder(new Order(order.getOrderId(),
                     Date.valueOf(order.getOrderDate()),
                     order.getCustomerId()));
             if (!result) {
@@ -140,7 +142,7 @@ public class BusinessLogic {
                 return false;
             }
             for (OrderDetailTM orderDetail : orderDetails) {
-                result = new OrderDetailsDAO().saveOrderDetail(new OrderDetail(
+                result = new OrderDetailsDAOImpl().saveOrderDetail(new OrderDetail(
                         order.getOrderId(), orderDetail.getCode(),
                         orderDetail.getQty(), BigDecimal.valueOf(orderDetail.getUnitPrice())
                 ));
@@ -148,9 +150,9 @@ public class BusinessLogic {
                     connection.rollback();
                     return false;
                 }
-                Item item = new ItemDAO().findItem(orderDetail.getCode());
+                Item item = new ItemDAOImpl().findItem(orderDetail.getCode());
                 item.setQtyOnHand(item.getQtyOnHand() - orderDetail.getQty());
-                result = new ItemDAO().updateItem(item);
+                result = new ItemDAOImpl().updateItem(item);
                 if (!result){
                     connection.rollback();
                     return false;

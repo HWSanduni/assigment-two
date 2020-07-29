@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.OrderDetailDAO;
 import db.DBConnection;
 import entity.OrderDetail;
 import entity.OrderDetailPK;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailsDAO {
+public class OrderDetailsDAOImpl implements OrderDetailDAO {
 
     public  List<OrderDetail> findAllOrderDetails() {
         try {
