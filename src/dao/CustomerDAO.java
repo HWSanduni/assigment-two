@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CustomerDAO {
 
-    public static List<Customer> findAllCustomers(){
+    public  List<Customer> findAllCustomers(){
 
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -30,7 +30,7 @@ public class CustomerDAO {
 
     }
 
-    public static Customer findCustomer(String id){
+    public  Customer findCustomer(String id){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
@@ -49,7 +49,7 @@ public class CustomerDAO {
 
     }
 
-    public static boolean saveCustomer (Customer customer){
+    public  boolean saveCustomer (Customer customer){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
@@ -67,7 +67,7 @@ public class CustomerDAO {
 
     }
 
-    public static boolean updateCustomer (Customer customer){
+    public  boolean updateCustomer (Customer customer){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customer SET name=?,address=? WHERE id=?");
@@ -83,7 +83,7 @@ public class CustomerDAO {
         }
     }
 
-    public static boolean deleteCustomer (String id){
+    public  boolean deleteCustomer (String id){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE id=?");
@@ -94,7 +94,7 @@ public class CustomerDAO {
             return false;
         }
     }
-    public static String getLastCustomerId() {
+    public  String getLastCustomerId() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
