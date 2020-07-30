@@ -149,6 +149,7 @@ public class BusinessLogic {
         OrderDAO orderDAO = DAOFactroy.getInstance().getDAO(DAOType.ORDER);
         OrderDetailDAO orderDetailDAO =DAOFactroy.getInstance().getDAO(DAOType.ORDER_DETAILS);
         ItemDAO itemDAO =DAOFactroy.getInstance().getDAO(DAOType.ITEM);
+       // boolean result = false;
         try {
             connection.setAutoCommit(false);
             boolean result = orderDAO.save(new Order(order.getOrderId(),

@@ -110,9 +110,9 @@ public class ItemController {
     }
 
     public void btnAddNewItemOnAction(ActionEvent actionEvent) {
-        System.out.println("------------");
-        String a = BusinessLogic.getNewItemId();
-        System.out.println(a);
-        txtCode.setText(BusinessLogic.getNewItemId());
+//        System.out.println("------------");
+//        String a = BusinessLogic.getNewItemId();
+//        System.out.println(a);
+//        txtCode.setText(BusinessLogic.getNewItemId());
     }
 }

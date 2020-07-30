@@ -1,9 +1,6 @@
 package dao;
 
-import dao.custom.impl.CustomerDAOImpl;
-import dao.custom.impl.ItemDAOImpl;
-import dao.custom.impl.OrderDAOImpl;
-import dao.custom.impl.OrderDetailsDAOImpl;
+import dao.custom.impl.*;
 
 public class DAOFactroy {
 
@@ -28,6 +25,10 @@ public class DAOFactroy {
 
             case ORDER_DETAILS:
                 return (T) new OrderDetailsDAOImpl();
+
+            case QUERY:
+                return (T) new QueryDAOImpl();
+
             default:
                 return null;
         }
