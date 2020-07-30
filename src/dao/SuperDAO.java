@@ -2,12 +2,12 @@ package dao;
 
 import java.util.List;
 
-public interface SuperDAO {
+public interface SuperDAO <T,ID> {
 
-    public List<Object> findAll();
-    public  Object find(Object pk);
-    public  boolean save (Object obj);
-    public  boolean update (Object obj);
-    public  boolean delete (Object pk);
+    public List<T> findAll();
+    public  T find(ID pk);
+    public  boolean save (T obj);
+    public  boolean update (T obj);
+    public  boolean delete (ID pk);
 
 }

@@ -29,12 +29,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    public List<Object> findAll() {
+    public List<Customer> findAll() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
-            ArrayList<Object> customers = new ArrayList<>();
+            ArrayList<Customer> customers = new ArrayList<>();
             while (rst.next()){
                 customers.add(new Customer(rst.getString(1),
                         rst.getString(2),
@@ -48,7 +48,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Object find(Object id) {
+    public Customer find(Customer id) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
@@ -66,11 +66,11 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean save(Object obj) {
+    public boolean save(Customer customer) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
-            Customer customer = (Customer) obj;
+
             preparedStatement.setObject(1,customer.getId());
             preparedStatement.setObject(2,customer.getName());
             preparedStatement.setObject(3,customer.getAddress());
@@ -83,11 +83,11 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean update(Object obj) {
+    public boolean update(Customer customer) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customer SET name=?,address=? WHERE id=?");
-            Customer customer = (Customer) obj;
+
             preparedStatement.setObject(3,customer.getId());
             preparedStatement.setObject(2,customer.getName());
             preparedStatement.setObject(1,customer.getAddress());
@@ -100,7 +100,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(Object id) {
+    public boolean delete(Customer id) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE id=?");

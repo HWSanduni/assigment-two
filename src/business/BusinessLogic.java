@@ -88,7 +88,7 @@ public class BusinessLogic {
 
     public static List<CustomerTM> getAllCustomers() {
         CustomerDAO customerDAO = new CustomerDAOImpl();
-        List<Object> allCustomers = customerDAO.findAll();
+        List<Customer> allCustomers = customerDAO.findAll();
         List<CustomerTM> customers = new ArrayList<>();
         for (Object cust : allCustomers) {
             Customer customer = (Customer) cust;
@@ -114,7 +114,7 @@ public class BusinessLogic {
 
     public static List<ItemTM> getAllItems() {
         ItemDAO itemDAO = new ItemDAOImpl();
-        List<Object> allItems = itemDAO.findAll();
+        List<Item> allItems = itemDAO.findAll();
         List<ItemTM> items = new ArrayList<>();
         for (Object ite : allItems) {
             Item item = (Item) ite;
