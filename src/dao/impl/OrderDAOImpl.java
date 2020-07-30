@@ -10,14 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
+    @Override
+    public  String getLastOrderId() {
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT * FROM `Order` ORDER BY id DESC LIMIT 1");
+            if (!rst.next()){
+                return null;
+            }else{
+                return rst.getString(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
-    public  List<Order> findAllOrders() {
+    public List<Object> findAll() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM `Order`");
-            List<Order> orders = new ArrayList<>();
+            List<Object> orders = new ArrayList<>();
             while (rst.next()) {
                 orders.add(new Order(rst.getString(1),
                         rst.getDate(2),
@@ -31,7 +47,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public  Order findOrder(String orderId) {
+    public Object find(Object orderId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM `Order` WHERE id=?");
@@ -50,10 +66,11 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public  boolean saveOrder(Order order) {
+    public boolean save(Object obj) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("INSERT INTO `Order` VALUES (?,?,?)");
+           Order order = (Order) obj;
             pstm.setObject(1, order.getId());
             pstm.setObject(2, order.getDate());
             pstm.setObject(3, order.getCustomerId());
@@ -65,10 +82,11 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public  boolean updateOrder(Order order) {
+    public boolean update(Object obj) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("UPDATE Order SET date=?, customerId=? WHERE id=?");
+            Order order = (Order) obj;
             pstm.setObject(3, order.getId());
             pstm.setObject(1, order.getDate());
             pstm.setObject(2, order.getCustomerId());
@@ -80,7 +98,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public  boolean deleteOrder(String orderId) {
+    public boolean delete(Object orderId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("DELETE FROM Order WHERE id=?");
@@ -89,23 +107,6 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
-        }
-    }
-
-    @Override
-    public  String getLastOrderId() {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM `Order` ORDER BY id DESC LIMIT 1");
-            if (!rst.next()){
-                return null;
-            }else{
-                return rst.getString(1);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
         }
     }
 }
